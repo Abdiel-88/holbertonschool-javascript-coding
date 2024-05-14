@@ -1,27 +1,22 @@
 #!/usr/bin/node
-
 const request = require('request');
-const apiUrl = process.argv[2];
-const characterId = 18;
+const useURL = process.argv[2];
 
-if (!apiUrl) {
-  console.error('API URL not provided');
-  process.exit(1);
-}
-
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
-    process.exit(1);
-  }
-  const data = JSON.parse(body);
-  let count = 0;
-
-  data.results.forEach(film => {
-    if (film.characters.includes(`https://swapi-api.hbtn.io/api/people/${characterId}/`)) {
-      count++;
+request(useURL, (err, res, body) => {
+  if (err) {
+    console.log(err);
+  } else if (res.statusCode === 200) {
+    const moviesInfo = JSON.parse(body).results;
+    let foundAmount = 0;
+    for (let i = 0; i < moviesInfo.length; i++) {
+      for (let j = 0; j < moviesInfo[i].characters.length; j++) {
+        if (moviesInfo[i].characters[j].includes('/18/')) {
+          foundAmount++;
+        }
+      }
     }
-  });
-
-  console.log(count);
+    console.log(foundAmount);
+  } else {
+    console.log('Invalid url');
+  }
 });
