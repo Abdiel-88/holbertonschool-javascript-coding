@@ -3,11 +3,15 @@
 const fs = require('fs');
 const filePath = process.argv[2];
 
-// Read the file content in utf-8
+if (!filePath) {
+  console.error('File path not provided');
+  process.exit(1);
+}
+
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
-    return;
+    process.exit(1);
   }
   console.log(data);
 });

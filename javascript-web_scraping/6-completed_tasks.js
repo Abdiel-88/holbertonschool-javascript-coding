@@ -3,17 +3,19 @@
 const request = require('request');
 const apiUrl = process.argv[2];
 
-// Make a GET request to the specified API URL
+if (!apiUrl) {
+  console.error('API URL not provided');
+  process.exit(1);
+}
+
 request(apiUrl, (error, response, body) => {
   if (error) {
     console.error('Error:', error);
-    return;
+    process.exit(1);
   }
-  // Parse the response body as JSON
   const tasks = JSON.parse(body);
   const completedTasks = {};
 
-  // Loop through each task
   tasks.forEach(task => {
     if (task.completed) {
       if (!completedTasks[task.userId]) {
@@ -23,6 +25,5 @@ request(apiUrl, (error, response, body) => {
     }
   });
 
-  // Print the number of completed tasks by user
   console.log(completedTasks);
 });

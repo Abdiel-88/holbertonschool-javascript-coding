@@ -3,12 +3,15 @@
 const request = require('request');
 const url = process.argv[2];
 
-// Make a GET request to the specified URL
+if (!url) {
+  console.error('URL not provided');
+  process.exit(1);
+}
+
 request(url, (error, response) => {
   if (error) {
     console.error('Error:', error);
-    return;
+    process.exit(1);
   }
-  // Print the status code
   console.log('code:', response.statusCode);
 });
