@@ -1,6 +1,6 @@
 const express = require('express');
 const AppController = require('../controllers/AppController');
-const StudentsController = require('../controllers/StudentsController.js'); // Add .js extension
+const StudentsController = require('../controllers/StudentsController.js'); // Ensure this path is correct
 
 const router = express.Router();
 
