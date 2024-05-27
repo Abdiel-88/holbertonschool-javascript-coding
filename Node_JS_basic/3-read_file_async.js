@@ -15,7 +15,7 @@ function countStudents(path) {
       }
 
       const students = lines.slice(1).map((line) => line.split(',')).filter((student) => student.length === 4);
-      console.log(`Number of students: ${students.length}`);
+      const numberOfStudents = students.length;
 
       const fields = {};
       students.forEach((student) => {
@@ -26,11 +26,12 @@ function countStudents(path) {
         fields[field].push(firstname);
       });
 
+      let output = `Number of students: ${numberOfStudents}\n`;
       for (const [field, names] of Object.entries(fields)) {
-        console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
+        output += `Number of students in ${field}: ${names.length}. List: ${names.join(', ')}\n`;
       }
 
-      resolve();
+      resolve(output.trim());
     });
   });
 }
