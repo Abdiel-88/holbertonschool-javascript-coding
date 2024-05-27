@@ -7,16 +7,17 @@ class StudentsController {
     readDatabase(database)
       .then((data) => {
         let response = 'This is the list of our students\n';
-        const fields = Object.keys(data).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+        const fields = Object.keys(data)
+          .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
         fields.forEach((field) => {
           response += `Number of students in ${field}: ${data[field].length}. `
-                                + `List: ${data[field].join(', ')}\n`;
+                      + `List: ${data[field].join(', ')}\n`;
         });
 
         res.status(200).send(response.trim());
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).send('Cannot load the database');
       });
   }
@@ -38,7 +39,7 @@ class StudentsController {
           res.status(200).send('List: ');
         }
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).send('Cannot load the database');
       });
   }
